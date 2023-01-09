@@ -1,8 +1,10 @@
+using ExcelToDataBase.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ExcelToDataBase.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,10 @@ namespace ExcelToDataBase
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<DapperContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
